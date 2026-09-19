@@ -36,6 +36,7 @@ function buildCustomerBlock(customer?: CustomerInfo): string {
 
 export function buildOrderMessage(items: LineItem[], customer?: CustomerInfo): string {
   const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+
   return [
     `Hola, ${storeConfig.name}. Estoy interesado en realizar el siguiente pedido:`,
     ``,
@@ -45,6 +46,9 @@ export function buildOrderMessage(items: LineItem[], customer?: CustomerInfo): s
     ``,
     `━━━━━━━━━━━━`,
     `💰 *TOTAL: ${formatPrice(total)}*`,
+    ``,
+    `🚚 *ENVÍO CONTRAENTREGA EN CALI*`,
+    `El valor del domicilio se suma al precio del pedido.`,
     buildCustomerBlock(customer),
     ``,
     `Quisiera información para realizar la compra y conocer las opciones de entrega.`,
@@ -53,16 +57,31 @@ export function buildOrderMessage(items: LineItem[], customer?: CustomerInfo): s
     .join("\n")
 }
 
-export function whatsappLink(message: string, number: string = storeConfig.whatsappNumber): string {
+export function whatsappLink(
+  message: string,
+  number: string = storeConfig.whatsappNumber,
+): string {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
 }
 
-export function cartWhatsappLink(items: CartItem[], customer?: CustomerInfo): string {
+export function cartWhatsappLink(
+  items: CartItem[],
+  customer?: CustomerInfo,
+): string {
   return whatsappLink(buildOrderMessage(items, customer))
 }
 
-export function productWhatsappLink(product: Product, quantity = 1): string {
+export function productWhatsappLink(
+  product: Product,
+  quantity = 1,
+): string {
   return whatsappLink(
-    buildOrderMessage([{ name: product.name, quantity, price: product.price }]),
+    buildOrderMessage([
+      {
+        name: product.name,
+        quantity,
+        price: product.price,
+      },
+    ]),
   )
 }
