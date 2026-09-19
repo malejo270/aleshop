@@ -210,13 +210,15 @@ export function CartView() {
 
         <div className="rounded-xl bg-card p-5 ring-1 ring-foreground/10">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Subtotal</span>
+            <span className="text-muted-foreground">Precio</span>
             <span className="font-medium">{formatPrice(subtotal)}</span>
           </div>
+
           <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
-            <span className="font-semibold">Total</span>
+            <span className="font-semibold">Total + domicilio</span>
             <span className="text-xl font-semibold">{formatPrice(subtotal)}</span>
           </div>
+
           <Button
             size="lg"
             className="mt-4 w-full bg-whatsapp text-white hover:bg-whatsapp/90"
@@ -225,8 +227,9 @@ export function CartView() {
             <MessageCircle className="size-5" />
             Comprar por WhatsApp
           </Button>
+
           <p className="mt-2 text-center text-xs text-muted-foreground">
-            Coordinarás el pago y la entrega directamente por WhatsApp.
+            El domicilio se consulta y se confirma por WhatsApp.
           </p>
         </div>
       </aside>
